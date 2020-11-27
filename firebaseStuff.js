@@ -1,7 +1,7 @@
 var database = firebase.firestore();
 var docRef = database.collection("text");
 var provider = new firebase.auth.GoogleAuthProvider();
-var user_info = document.getElementById("user_info");
+var message = document.getElementById("message");
 var current_user = null;
 
 function authenticate(){
@@ -16,7 +16,7 @@ function authenticate(){
 	  }
 	  // The signed-in user info
 	  current_user = result.user;
-	  user_info.innerHTML = "Signed in as " + current_user.email;
+	  message.innerHTML = "Signed in as " + current_user.email;
 
 
 	}).catch(function(error) {
@@ -33,7 +33,7 @@ function authenticate(){
 function signOut(){
 	firebase.auth().signOut().then(function() {
 		// Sign-out successful
-		user_info.innerHTML = "Signed out";
+		message.innerHTML = "Signed out";
 	}).catch(function(error) {
 		// An error happened
 	});
@@ -45,10 +45,10 @@ firebase.auth().onAuthStateChanged(function(user) {
 	current_user=user;
 	if (user) {
     	// User is signed in
-		user_info.innerHTML = "Signed in as " + user.uid;
+		message.innerHTML = "Signed in as " + user.uid;
   	} else {
     	// No user is signed in
-		user_info.innerHTML = "Signed out";
+		message.innerHTML = "Signed out";
   	}
 });
 
