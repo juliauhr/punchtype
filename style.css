@@ -1,0 +1,29 @@
+body{
+  text-align:left;
+}
+#flatText{
+  width:50%;
+  height:60%;
+}
+#vrScene{
+  display:inline-block;
+  width:50%;
+  height:60%;
+}
+#settings{
+  display:inline-block;
+  position:absolute;
+  top:0;
+  padding:1em;
+}
+.deselected,.selected{
+  width:100%;
+  padding: 5%;
+}
+.deselected:hover{
+  background-color:#ff66a3;
+  border:2px solid black;
+}
+.selected{
+  border:3px solid #ff66a3;
+}

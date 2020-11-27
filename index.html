@@ -1,0 +1,154 @@
+<head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="aframeStuff.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="vrScene">
+  <a-scene embedded background="color:black" external-text vr-in-out>
+    <a-assets>
+      <a-mixin id="ball"
+               geometry="primitive: sphere; segments-height:4; segments-width:8"
+               material="metalness:.7; opacity:.5;"
+               scale=".12 .12 .12"
+               sound="src:#pop; on:softPunch;"
+               sound__h="src:#pop2; on:hardPunch;">
+      </a-mixin>
+      <audio id="pop2" src="https://cdn.glitch.com/487ecebd-439a-4651-b073-01f715f9732e%2Fpop3.mp3?v=1606265715092" crossorigin="anonymous"></audio>
+      <audio id="pop" src="https://cdn.glitch.com/487ecebd-439a-4651-b073-01f715f9732e%2Fpop2.wav?v=1606263682401" crossorigin="anonymous"></audio>
+      <img id="m_circle" src="circle.png">
+      <!--popping sounds from CBJ_Student on freesound.org-->
+    </a-assets>
+
+    <a-box id="vrTextBox" opacity="0" scale="5 5 .01" position="0 3 -5">
+      <a-entity id="vrText" text="color:grey; value:hello">
+      </a-entity>
+    </a-box>
+
+    <a-entity id="keyboard" position="0 .6 .3" keyboard-setup keyboard-settings></a-entity>
+    <a-entity id="numpad" position="0 -3 -4" numpad-setup></a-entity>
+    <a-plane material="src:#m_circle; transparent:true;" position="0 0 0" scale="1 1" rotation="-90 0 0"></a-plane>
+
+    <a-entity>
+      <a-camera></a-camera>
+      <a-entity id="rhand" velocity-calculator velocity="0" fist-listener a-button-listener sphere-collider hand-controls="hand:right; handModelStyle:highPoly"></a-entity>
+      <a-entity id="lhand" velocity-calculator velocity="0" fist-listener yx-button-listener sphere-collider hand-controls="hand:left; handModelStyle:highPoly"></a-entity>
+    </a-entity>
+
+  </a-scene>
+  </div>
+
+  <div id="settings">
+    <h3>Keyboard height:</h3>
+    <button id="tallButton" class="deselected">Tall Standing</button><br>
+    <button id="standingButton" class="selected">Standing</button><br>
+    <button id="sittingButton" class="deselected">Sitting</button>
+    <h3>Keyboard layout:</h3>
+    <button id="qwertyButton" class="deselected">QWERTY</button><br>
+    <button id="dvorakButton" class="selected">Dvorak</button><br>
+    <button id="abcButton" class="deselected">ABC</button>
+  </div>
+
+  <div id="user_info">user info</div>
+  <br>
+  <button id="signInButton">Sign In</button>
+  <button id="signOutButton">Sign Out</button>
+  <button id="saveButton">Save</button>
+  <br><br>
+  <div>
+    <textarea id="flatText">text</textarea>
+  </div>
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+
+
+
+<script>
+
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDV6v0UPIr8UXc_y3AdWW-oPOLT_4MMkuE",
+    authDomain: "punchtype-b93fe.firebaseapp.com",
+    databaseURL: "https://punchtype-b93fe.firebaseio.com",
+    projectId: "punchtype-b93fe",
+    storageBucket: "punchtype-b93fe.appspot.com",
+    messagingSenderId: "450955295594",
+    appId: "1:450955295594:web:6df0644b14b92515ce4313"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script src="firebaseStuff.js"></script>
+</body>
+
+
+<script>
+/*
+document.getElementById("saveButton").addEventListener("click", saveText);
+
+var database = firebase.firestore();
+getStuff();
+
+function saveNote(){
+  var newText = document.getElementById("flatText").value;
+  //if(newText != ""){
+    database.collection("notes").add({
+      text: newText
+    })
+    .then(function(docRef){
+      console.log("Document written with ID: ", docRef.id);
+      document.getElementById("myText").value = "";
+      getStuff();
+    })
+    .catch(function(error){
+      console.error("Error adding document: ", error);
+    })
+  //}
+}
+
+function getStuff(){
+  document.getElementById("flatText").innerHTML = "";
+  database.collection("text").get()
+  .then(function(querySnapshot){
+    querySnapshot.forEach(function(doc){
+      console.log(doc.id+": "+doc.data().text);
+      text = doc.data().text;
+      updateText();
+      //document.getElementById('flatText').innerHTML = doc.data().text;
+    });
+  });
+}
+
+function saveText(){
+  var txt = document.getElementById("flatText").value;
+  database.collection("text").doc("XEIeRSEo1J6WFUe6GZmJ").set({
+    text: txt
+  }).then(function(){
+    console.log("saved");
+  }).catch(function(error){
+      console.error("Error saving: ", error);
+  });
+}
+
+function deleteNote(myid){
+  database.collection("notes").doc(myid).delete().then(function(){
+      console.log("Document successfully deleted");
+      getStuff();
+  }).catch(function(error){
+      console.error("Error removing document: ", error);
+  });
+}
+*/
+</script>
+
+<style>
+
+
+</style>
