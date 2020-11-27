@@ -1,5 +1,5 @@
 var database = firebase.firestore();
-var docRef = database.collection("text");
+var docRef = database.collection("users");
 var provider = new firebase.auth.GoogleAuthProvider();
 var message = document.getElementById("message");
 var current_user = null;
@@ -17,6 +17,22 @@ function authenticate(){
 	  // The signed-in user info
 	  current_user = result.user;
 	  message.innerHTML = "Signed in as " + current_user.email;
+
+
+
+
+
+		database.collection("users").get()
+	  .then(function(querySnapshot){
+	    querySnapshot.forEach(function(doc){
+	      console.log(doc.id+": "+doc.data().text);
+				message.innerHTML+=doc.data().text;
+	      //text = doc.data().text;
+	      //updateText();
+	      //document.getElementById('flatText').innerHTML = doc.data().text;
+	    });
+
+
 
 
 	}).catch(function(error) {
@@ -51,6 +67,10 @@ firebase.auth().onAuthStateChanged(function(user) {
 		message.innerHTML = "Signed out";
   	}
 });
+
+
+
+
 
 function order()
 {
