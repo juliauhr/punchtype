@@ -35,7 +35,7 @@ function signOut(){
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
 	currentUser = user;
-	if(user){
+	if(currentUser){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + currentUser.email;
 		docRef = database.collection("users").doc(currentUser.email);
