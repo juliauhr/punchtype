@@ -1,3 +1,5 @@
+alert("1")
+
 var database = firebase.firestore();
 //var docRef = database.collection("users").doc("julia");
 var provider = new firebase.auth.GoogleAuthProvider();
