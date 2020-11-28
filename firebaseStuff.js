@@ -44,11 +44,11 @@ function signOut(){
 firebase.auth().onAuthStateChanged(function(user) {
 	console.log("auth state changed");
 	current_user=user;
-	if (user) {
+	if(user){
     	// User is signed in
-		message.innerHTML = "Signed in as " + user.uid;
+		message.innerHTML = "Signed in as " + user.email;
 
-		database.collection("users").get()
+		database.collection("users").julia.get()
 		.then(function(querySnapshot){
 	    querySnapshot.forEach(function(doc){
 	      console.log(doc.id+": "+doc.data().text);
@@ -59,7 +59,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 
-  	} else {
+  	}else{
     	// No user is signed in
 		message.innerHTML = "Signed out";
   	}
