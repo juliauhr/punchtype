@@ -55,6 +55,7 @@ firebase.auth().onAuthStateChanged(function(user){
 	    }else{
 	        // doc.data() will be undefined in this case
 	        console.log("No such document!");
+					//add new user
 	    }
 			}).catch(function(error) {
 		    console.log("Error getting document:", error);
@@ -62,34 +63,22 @@ firebase.auth().onAuthStateChanged(function(user){
   	}else{
     	// No user is signed in
 			message.innerHTML = "Sign in to save your text";
-
   	}
 });
 
 
-
-
-
-function order()
-{
-	if (current_user) {
-		// Write a new document to firebase with a generated id.
-		database.collection("text").add({
-			text: "hello"
-		})
-		.then(function(docRef) {
-    		console.log("Document written with ID: ", docRef.id);
-		})
-		.catch(function(error) {
-			console.error("Error adding document: ", error);
-		});
-	}
-	else {
-		// No user is signed in.
-		//alert("Sign in to save your text");
-	}
+function save(){
+	database.collection("users").doc("julia").set({
+    text: text
+	})
+	.then(function() {
+	    console.log("Document successfully written!");
+	})
+	.catch(function(error) {
+	    console.error("Error writing document: ", error);
+	});
 }
 
-document.getElementById("saveButton").addEventListener("click", order);
+document.getElementById("saveButton").addEventListener("click", save);
 document.getElementById("signInButton").addEventListener("click", authenticate);
 document.getElementById("signOutButton").addEventListener("click", signOut);
