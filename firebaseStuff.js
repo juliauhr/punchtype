@@ -25,6 +25,8 @@ function signOut(){
 	firebase.auth().signOut().then(function() {
 		message.innerHTML = "Signed out";
 		document.querySelector('#saveButton').style.display = 'none';
+		text = "";
+		updateText();
 	}).catch(function(error) {
 		console.log('error signing out: ', error);
 	});
@@ -32,7 +34,6 @@ function signOut(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
-
 	currentUser = user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
@@ -46,8 +47,7 @@ firebase.auth().onAuthStateChanged(function(user){
 		});
   }else{
 		message.innerHTML = "Sign in to save your text";
-		text = "";
-		updateText();
+
   }
 });
 
