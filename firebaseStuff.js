@@ -31,22 +31,23 @@ function signOut(){
 	firebase.auth().signOut().then(function() {
 		// Sign-out successful
 		message.innerHTML = "Signed out";
+		document.querySelector('#saveButton').style.display = 'none';
 	}).catch(function(error) {
 		// An error happened
 	});
 }
 
 //setting an event listener for change of authentication state
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
 	current_user=user;
 	if(user){
     	// User is signed in
+		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + user.email;
 		var docRef = database.collection("users").doc("julia");
 
 		docRef.get().then(function(doc) {
-			document.querySelector('#saveButton').style.display = 'none';
 	    if (doc.exists) {
 	        console.log("Document data:", doc.data());
 					text = doc.data().text;
@@ -61,7 +62,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   	}else{
     	// No user is signed in
 			message.innerHTML = "Sign in to save your text";
-			document.querySelector('#saveButton').style.display = 'none';
+
   	}
 });
 
