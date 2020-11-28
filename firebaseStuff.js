@@ -1,5 +1,5 @@
 var database = firebase.firestore();
-var docRef = database.collection("users");
+//var docRef = database.collection("users");
 var provider = new firebase.auth.GoogleAuthProvider();
 var message = document.getElementById("message");
 var current_user = null;
@@ -25,7 +25,7 @@ function authenticate(){
 		database.collection("users").get()
 	  .then(function(querySnapshot){
 	    querySnapshot.forEach(function(doc){
-	      console.log(doc.id+": "+doc.data().text);
+	      console.log('i work');
 				message.innerHTML+=doc.data().text;
 	      //text = doc.data().text;
 	      //updateText();
