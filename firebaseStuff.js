@@ -35,7 +35,7 @@ firebase.auth().onAuthStateChanged(function(user){
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + user.email;
-		docRef = database.collection("users").doc(currentUser);
+		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc) {
 	    if (doc.exists) {
 				text = doc.data().text;
