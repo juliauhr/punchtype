@@ -35,7 +35,8 @@ firebase.auth().onAuthStateChanged(function(user){
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + user.email;
-		var docRef = database.collection("users").doc("julia");
+
+		docRef = database.collection("users").doc("julia");
 		docRef.get().then(function(doc) {
 	    if (doc.exists) {
         //console.log("Document data:", doc.data());
@@ -55,7 +56,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function saveText(){
 	var txt = document.querySelector('#flatText').value;
-	database.collection("users").doc("julia").set({
+	database.collection("users").doc(user.email).set({
     text: txt
 	})
 	.then(function() {
