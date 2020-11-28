@@ -17,14 +17,7 @@ function authenticate(){
 	  // The signed-in user info
 	  current_user = result.user;
 	  message.innerHTML = "Signed in as " + current_user.email;
-		database.collection.users.get()
-		.then(function(querySnapshot){
-	    querySnapshot.forEach(function(doc){
-	      console.log(doc.id+": "+doc.data().text);
-	      text += doc.data().text;
-	      updateText();
-	    });
-	  });
+
 
 
 	}).catch(function(error) {
@@ -54,6 +47,18 @@ firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
     	// User is signed in
 		message.innerHTML = "Signed in as " + user.uid;
+
+		database.collection.users.get()
+		.then(function(querySnapshot){
+	    querySnapshot.forEach(function(doc){
+	      console.log(doc.id+": "+doc.data().text);
+	      text += doc.data().text;
+	      updateText();
+	    });
+	  });
+
+
+
   	} else {
     	// No user is signed in
 		message.innerHTML = "Signed out";
