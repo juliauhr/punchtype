@@ -31,7 +31,7 @@ function signOut(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
-	//current_user=user;
+	current_user=user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + user.email;
@@ -56,7 +56,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function saveText(){
 	var txt = document.querySelector('#flatText').value;
-	database.collection("users").doc(user.email).set({
+	database.collection("users").doc(current_user.email).set({
     text: txt
 	})
 	.then(function() {
