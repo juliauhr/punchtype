@@ -40,6 +40,7 @@ firebase.auth().onAuthStateChanged(function(user){
 		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc){
 			text = doc.data().text;
+			flatText.value = text;
 			updateText();
 		}).catch(function(error) {
 		    console.log("Error getting document:", error);
