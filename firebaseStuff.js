@@ -1,7 +1,5 @@
-alert('hi 1')
-
 var database = firebase.firestore();
-//var docRef = database.collection("users");
+var docRef = database.collection("text");
 var provider = new firebase.auth.GoogleAuthProvider();
 var message = document.getElementById("message");
 var current_user = null;
@@ -9,24 +7,17 @@ var current_user = null;
 function authenticate(){
 	firebase.auth().getRedirectResult().then(function(result) {
 	  if (result.credential) {
+	    // This gives you a Google Access Token. You can use it to access the Google API.
 	    var token = result.credential.accessToken;
 	  }
 	  else {
+		  //google sign-in redirect
 		  firebase.auth().signInWithPopup(provider);
 	  }
+	  // The signed-in user info
 	  current_user = result.user;
 	  message.innerHTML = "Signed in as " + current_user.email;
 
-		database.collection("users").get()
-	  .then(function(querySnapshot){
-	    querySnapshot.forEach(function(doc){
-	      console.log('i work');
-				message.innerHTML+=doc.data().text;
-	      //text = doc.data().text;
-	      //updateText();
-	      //document.getElementById('flatText').innerHTML = doc.data().text;
-			})
-	  }
 	}).catch(function(error) {
 	  // Handle Errors here.
 	  var errorCode = error.code;
@@ -36,7 +27,7 @@ function authenticate(){
 	  // The firebase.auth.AuthCredential type that was used.
 	  var credential = error.credential;
 	});
-})
+}
 
 function signOut(){
 	firebase.auth().signOut().then(function() {
@@ -51,16 +42,16 @@ function signOut(){
 firebase.auth().onAuthStateChanged(function(user) {
 	console.log("auth state changed");
 	current_user=user;
-	if (user){
+	if (user) {
     	// User is signed in
 		message.innerHTML = "Signed in as " + user.uid;
-  	}else{
+  	} else {
     	// No user is signed in
 		message.innerHTML = "Signed out";
   	}
 });
 
-}
+
 
 
 
