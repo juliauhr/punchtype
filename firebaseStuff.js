@@ -58,7 +58,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	      updateText();
 	    });
 	  });*/
-		var docRef = db.collection("users").doc("julia");
+		var docRef = database.collection("users").doc("julia");
 
 		docRef.get().then(function(doc) {
 		    if (doc.exists) {
