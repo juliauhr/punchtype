@@ -61,12 +61,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 		var docRef = database.collection("users").doc("julia");
 
 		docRef.get().then(function(doc) {
-		    if (doc.exists) {
-		        console.log("Document data:", doc.data());
-		    } else {
-		        // doc.data() will be undefined in this case
-		        console.log("No such document!");
-		    }
+	    if (doc.exists) {
+	        console.log("Document data:", doc.data());
+					text = doc.data().text;
+					updateText();
+	    }else{
+	        // doc.data() will be undefined in this case
+	        console.log("No such document!");
+	    }
 		}).catch(function(error) {
 		    console.log("Error getting document:", error);
 		});
