@@ -17,6 +17,15 @@ function authenticate(){
 	  // The signed-in user info
 	  current_user = result.user;
 	  message.innerHTML = "Signed in as " + current_user.email;
+		database.collection.users.get()
+		.then(function(querySnapshot){
+	    querySnapshot.forEach(function(doc){
+	      console.log(doc.id+": "+doc.data().text);
+	      text += doc.data().text;
+	      updateText();
+	    });
+	  });
+
 
 	}).catch(function(error) {
 	  // Handle Errors here.
