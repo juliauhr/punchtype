@@ -23,13 +23,7 @@ function authenticate(){
 
 
 	}).catch(function(error) {
-	  // Handle Errors here.
-	  var errorCode = error.code;
-	  var errorMessage = error.message;
-	  // The email of the user's account used.
-	  var email = error.email;
-	  // The firebase.auth.AuthCredential type that was used.
-	  var credential = error.credential;
+		console.log('error '+error.code+": "+error.message);
 	});
 }
 
@@ -49,18 +43,10 @@ firebase.auth().onAuthStateChanged(function(user) {
 	if(user){
     	// User is signed in
 		message.innerHTML = "Signed in as " + user.email;
-
-		/*database.collection("users").julia.get()
-		.then(function(querySnapshot){
-	    querySnapshot.forEach(function(doc){
-	      console.log(doc.id+": "+doc.data().text);
-	      text += doc.data().text;
-	      updateText();
-	    });
-	  });*/
 		var docRef = database.collection("users").doc("julia");
 
 		docRef.get().then(function(doc) {
+			document.querySelector('#saveButton').style.display = 'none';
 	    if (doc.exists) {
 	        console.log("Document data:", doc.data());
 					text = doc.data().text;
@@ -69,15 +55,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 	        // doc.data() will be undefined in this case
 	        console.log("No such document!");
 	    }
-		}).catch(function(error) {
+			}).catch(function(error) {
 		    console.log("Error getting document:", error);
-		});
-
-
-
+			});
   	}else{
     	// No user is signed in
-		message.innerHTML = "Signed out";
+			message.innerHTML = "Sign in to save your text";
+			document.querySelector('#saveButton').style.display = 'none';
   	}
 });
 
