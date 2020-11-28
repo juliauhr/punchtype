@@ -48,7 +48,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     	// User is signed in
 		message.innerHTML = "Signed in as " + user.uid;
 
-		database.collection.users.get()
+		database.collection("users").get()
 		.then(function(querySnapshot){
 	    querySnapshot.forEach(function(doc){
 	      console.log(doc.id+": "+doc.data().text);
