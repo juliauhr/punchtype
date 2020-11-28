@@ -32,8 +32,7 @@ function signOut(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
-	text = "";
-	updateText();
+
 	currentUser = user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
@@ -47,6 +46,8 @@ firebase.auth().onAuthStateChanged(function(user){
 		});
   }else{
 		message.innerHTML = "Sign in to save your text";
+		text = "";
+		updateText();
   }
 });
 
