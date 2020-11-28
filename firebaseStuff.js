@@ -32,15 +32,15 @@ function signOut(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
-	flatText.value = "";
-	currentUser=user;
+	text = "";
+	updateText();
+	currentUser = user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + currentUser.email;
 		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc){
 			text = doc.data().text;
-			flatText.value = text;
 			updateText();
 		}).catch(function(error) {
 		    console.log("Error getting document:", error);
