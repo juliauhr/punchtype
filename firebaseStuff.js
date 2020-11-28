@@ -1,4 +1,4 @@
-alert("1")
+alert("2")
 
 var database = firebase.firestore();
 //var docRef = database.collection("users").doc("julia");
