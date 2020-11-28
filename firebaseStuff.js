@@ -4,6 +4,7 @@ var database = firebase.firestore();
 var provider = new firebase.auth.GoogleAuthProvider();
 var message = document.getElementById("message");
 var currentUser = null;
+var flatText = document.getElementById("flatText");
 
 function authenticate(){
 	firebase.auth().getRedirectResult().then(function(result) {
@@ -31,18 +32,19 @@ function signOut(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	console.log("auth state changed");
+	flatText.value = "";
 	currentUser=user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
 		message.innerHTML = "Signed in as " + user.email;
 		docRef = database.collection("users").doc(currentUser.email);
-		docRef.get().then(function(doc) {
-	    if (doc.exists) {
+		docRef.get().then(function(doc){
+	    //if (doc.exists) {
 				text = doc.data().text;
 				updateText();
-	    }else{
+	    //}else{
 	      //console.log("No such document!");
-	    }
+	    //}
 			}).catch(function(error) {
 		    console.log("Error getting document:", error);
 			});
@@ -52,7 +54,7 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 
 function saveText(){
-	var txt = document.querySelector('#flatText').value;
+	var txt = flatText.value;
 	database.collection("users").doc(currentUser.email).set({
     text: txt
 	})
