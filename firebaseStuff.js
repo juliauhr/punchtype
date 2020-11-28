@@ -36,21 +36,17 @@ firebase.auth().onAuthStateChanged(function(user){
 	currentUser=user;
 	if(user){
 		document.querySelector('#saveButton').style.display = 'inline';
-		message.innerHTML = "Signed in as " + user.email;
+		message.innerHTML = "Signed in as " + currentUser.email;
 		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc){
-	    //if (doc.exists) {
-				text = doc.data().text;
-				updateText();
-	    //}else{
-	      //console.log("No such document!");
-	    //}
-			}).catch(function(error) {
+			text = doc.data().text;
+			updateText();
+		}).catch(function(error) {
 		    console.log("Error getting document:", error);
-			});
-  	}else{
-			message.innerHTML = "Sign in to save your text";
-  	}
+		});
+  }else{
+		message.innerHTML = "Sign in to save your text";
+  }
 });
 
 function saveText(){
