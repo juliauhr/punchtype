@@ -1,5 +1,5 @@
 var database = firebase.firestore();
-var docRef = database.collection("text");
+//var docRef = database.collection("users").doc("julia");
 var provider = new firebase.auth.GoogleAuthProvider();
 var message = document.getElementById("message");
 var current_user = null;
@@ -48,14 +48,26 @@ firebase.auth().onAuthStateChanged(function(user) {
     	// User is signed in
 		message.innerHTML = "Signed in as " + user.email;
 
-		database.collection("users").julia.get()
+		/*database.collection("users").julia.get()
 		.then(function(querySnapshot){
 	    querySnapshot.forEach(function(doc){
 	      console.log(doc.id+": "+doc.data().text);
 	      text += doc.data().text;
 	      updateText();
 	    });
-	  });
+	  });*/
+		var docRef = db.collection("users").doc("julia");
+
+		docRef.get().then(function(doc) {
+		    if (doc.exists) {
+		        console.log("Document data:", doc.data());
+		    } else {
+		        // doc.data() will be undefined in this case
+		        console.log("No such document!");
+		    }
+		}).catch(function(error) {
+		    console.log("Error getting document:", error);
+		});
 
 
 
