@@ -16,6 +16,15 @@ function authenticate(){
 	  }
 	  currentUser = result.user;
 	  message.innerHTML = "Signed in as " + currentUser.email;
+
+		if (confirm("You already have a document started. Do you want to overwrite it?") == true) {
+
+		}else{
+			doc = database.collection("users").doc(currentUser.email);
+			text = doc.data().text;
+			updateText();
+		}
+
 	}).catch(function(error) {
 		console.log('error signing in: ', error);
 	});
@@ -40,12 +49,7 @@ firebase.auth().onAuthStateChanged(function(user){
 		message.innerHTML = "Signed in as " + currentUser.email;
 		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc){
-			if (confirm("You already have a document started. Do you want to overwrite it?") == true) {
 
-			}else{
-				text = doc.data().text;
-				updateText();
-			}
 
 		}).catch(function(error) {
 		  console.log("Error getting document:", error);
