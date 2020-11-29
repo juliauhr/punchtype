@@ -8,10 +8,10 @@ var flatText = document.getElementById("flatText");
 
 function authenticate(){
 	firebase.auth().getRedirectResult().then(function(result) {
-	  if (result.credential) {
+	  if(result.credential) {
 	    var token = result.credential.accessToken;
 	  }
-	  else {
+	  else{
 		  firebase.auth().signInWithPopup(provider);
 	  }
 	  currentUser = result.user;
@@ -40,14 +40,18 @@ firebase.auth().onAuthStateChanged(function(user){
 		message.innerHTML = "Signed in as " + currentUser.email;
 		docRef = database.collection("users").doc(currentUser.email);
 		docRef.get().then(function(doc){
-			text = doc.data().text;
-			updateText();
+			if (confirm("You already have a document started. Do you want to overwrite it?") == true) {
+
+			}else{
+				text = doc.data().text;
+				updateText();
+			}
+
 		}).catch(function(error) {
-		    console.log("Error getting document:", error);
+		  console.log("Error getting document:", error);
 		});
   }else{
 		message.innerHTML = "Sign in to save your text";
-
   }
 });
 
